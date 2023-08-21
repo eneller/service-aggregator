@@ -25,14 +25,14 @@ public class MainApplication {
     @GetMapping("/")
     public String root(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
         model.addAttribute("dataList", dataList);
+        // returns a file called "aggregator" from templates
         return "aggregator";
     }
 
-    @PostMapping("/")
     /*we need to return something so our client doesn't receive an error
     test using curl -X POST "localhost:8081?data=abc"
      */
-
+    @PostMapping("/")
     public ResponseEntity<String> input(@RequestParam(name = "data", required = true) String data) {
         dataList.add(data);
         return new ResponseEntity<String>(data, HttpStatus.CREATED);
